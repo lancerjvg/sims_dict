@@ -1,3 +1,4 @@
+
 <div class="sims-sidebar">
 
     <!-- BRAND -->
@@ -52,7 +53,7 @@
             <i class="bi bi-bar-chart-fill"></i>
             <span>Reports</span>
         </a>
-
+ 
     </nav>
 
     <!-- SYSTEM -->
@@ -69,11 +70,11 @@
 
         <!-- Course Management -->
         <a href="{{ route('courses.index') }}"
-           class="sidebar-link {{ request()->routeIs('courses.*') ? 'active' : '' }}">
+           class="sidebar-link sidebar-sub-link {{ request()->routeIs('courses.*') ? 'active' : '' }}">
             <i class="bi bi-mortarboard-fill"></i>
             <span>Course Management</span>
         </a>
-
+ 
         <!-- AI ENGINEERING PORTFOLIO -->
         <a href="{{ route('portfolio') }}"
            class="sidebar-link portfolio-menu-link {{ request()->routeIs('portfolio') ? 'active' : '' }}">
@@ -201,6 +202,24 @@
 
     .sidebar-link.active i {
         color: #818cf8;
+    }
+
+    /* SETTINGS SUBMENU */
+    .sidebar-link.sidebar-sub-link {
+        min-height: 48px;
+        margin-left: 16px;
+        width: calc(100% - 16px);
+        padding-left: 12px;
+        font-size: 13px;
+        border-radius: 10px;
+    }
+
+    .sidebar-link.sidebar-sub-link i {
+        font-size: 16px;
+    }
+
+    .sidebar-link.sidebar-sub-link.active {
+        padding-left: 9px;
     }
 
     /* AI PORTFOLIO MENU */

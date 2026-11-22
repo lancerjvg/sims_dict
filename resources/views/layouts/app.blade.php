@@ -737,12 +737,21 @@ main,
                     <span>Settings</span>
                 </a>
 
-                {{-- COURSE MANAGEMENT (SUBMENU UNDER SETTINGS) --}}
-                <a href="{{ route('courses.index') }}"
-                   class="sidebar-sub-link {{ request()->routeIs('courses.*') ? 'active' : '' }}">
-                    <i class="bi bi-mortarboard-fill"></i>
-                    <span>Course Management</span>
-                </a>
+                
+        {{-- COURSE MANAGEMENT (SUBMENU UNDER SETTINGS) --}}
+        <a href="{{ route('courses.index') }}"
+        class="sidebar-sub-link {{ request()->routeIs('courses.*') ? 'active' : '' }}">
+            <i class="bi bi-mortarboard-fill"></i>
+            <span>Course Management</span>
+        </a>
+
+        {{-- USER MANAGEMENT (SUBMENU UNDER SETTINGS) --}}
+        <a href="{{ route('user-management.index') }}"
+        class="sidebar-sub-link {{ request()->routeIs('user-management.*') ? 'active' : '' }}">
+            <i class="bi bi-people-fill"></i>
+            <span>User Management</span>
+        </a>
+
 
                 {{-- AI ENGINEERING PORTFOLIO (STANDALONE MENU) --}}
                 <a href="{{ route('portfolio') }}"
