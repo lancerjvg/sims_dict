@@ -74,6 +74,13 @@
             <span>Course Management</span>
         </a>
 
+        <!-- AI ENGINEERING PORTFOLIO -->
+        <a href="{{ route('portfolio') }}"
+           class="sidebar-link portfolio-menu-link {{ request()->routeIs('portfolio') ? 'active' : '' }}">
+            <i class="bi bi-cpu"></i>
+            <span>AI Engineering Portfolio</span>
+        </a>
+
     </nav>
 
 </div>
@@ -194,6 +201,34 @@
 
     .sidebar-link.active i {
         color: #818cf8;
+    }
+
+    /* AI PORTFOLIO MENU */
+    .portfolio-menu-link i {
+        color: #a78bfa;
+    }
+
+    .portfolio-menu-link:hover {
+        background: linear-gradient(
+            90deg,
+            rgba(139, 92, 246, .16),
+            rgba(56, 189, 248, .06)
+        );
+    }
+
+    .portfolio-menu-link.active {
+        background: linear-gradient(
+            90deg,
+            rgba(139, 92, 246, .22),
+            rgba(56, 189, 248, .08)
+        );
+        color: #c4b5fd;
+        border-left: 3px solid #a78bfa;
+        padding-left: 11px;
+    }
+
+    .portfolio-menu-link.active i {
+        color: #c4b5fd;
     }
 
     /* RESPONSIVE */

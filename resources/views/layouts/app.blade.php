@@ -744,6 +744,13 @@ main,
                     <span>Course Management</span>
                 </a>
 
+                {{-- AI ENGINEERING PORTFOLIO (STANDALONE MENU) --}}
+                <a href="{{ route('portfolio') }}"
+                   class="{{ request()->routeIs('portfolio') ? 'active' : '' }}">
+                    <i class="bi bi-cpu"></i>
+                    <span>AI Engineering Portfolio</span>
+                </a>
+
             </nav>
 
         </div>
