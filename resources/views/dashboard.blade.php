@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('title', 'SIMS Dashboard')
@@ -5,218 +6,75 @@
 
 @section('content')
 
-<style>
-/* ================================
-   FALLING SNOW
-================================ */
-.snowflake {
-    position: fixed;
-    top: -20px;
-    z-index: 999;
-    color: #bdeaff;
-    pointer-events: none;
-    animation: snowFall linear infinite;
-    opacity: 0.8;
-}
-
-@keyframes snowFall {
-    0% {
-        transform: translateY(-20px) rotate(0deg);
-        opacity: 0;
-    }
-
-    10% {
-        opacity: 0.9;
-    }
-
-    100% {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0;
-    }
-}
-
-/* ================================
-   NEW YEAR COUNTDOWN CARD
-================================ */
-.new-year-countdown {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    width: 210px;
-    background: linear-gradient(135deg, #b91c1c, #e33434);
-    color: white;
-    border-radius: 18px;
-    padding: 14px;
-    box-shadow: 0 8px 25px rgba(0,0,0,.35);
-    z-index: 1050;
-    border: 2px solid rgba(255,255,255,.25);
-}
-
-/* BOUNCE TWICE */
-@keyframes countdownBounce2x {
-    0%, 100% {
-        transform: translateY(0);
-    }
-
-    10% {
-        transform: translateY(-18px);
-    }
-
-    20% {
-        transform: translateY(0);
-    }
-
-    30% {
-        transform: translateY(-18px);
-    }
-
-    40% {
-        transform: translateY(0);
-    }
-}
-
-.bounce-countdown {
-    animation: countdownBounce2x 4s ease-in-out infinite;
-}
-
-.countdown-close {
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: #343a40;
-    color: white;
-    border: 2px solid white;
-    font-weight: bold;
-    cursor: pointer;
-    z-index: 2;
-}
-
-.countdown-title {
-    font-size: 11px;
-    font-weight: 800;
-    text-align: center;
-    letter-spacing: 1px;
-    margin-bottom: 10px;
-}
-
-.countdown-items {
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-}
-
-.countdown-box {
-    background: rgba(255,255,255,.15);
-    border-radius: 8px;
-    flex: 1;
-    text-align: center;
-    padding: 7px 3px;
-}
-
-.countdown-number {
-    font-size: 22px;
-    font-weight: 800;
-    line-height: 1;
-}
-
-.countdown-label {
-    font-size: 9px;
-    margin-top: 5px;
-}
-
-/* RESPONSIVE */
-@media (max-width: 576px) {
-    .new-year-countdown {
-        width: 190px;
-        right: 12px;
-        bottom: 12px;
-    }
-}
-
-/* REDUCED MOTION */
-@media (prefers-reduced-motion: reduce) {
-    .snowflake,
-    .bounce-countdown {
-        animation: none !important;
-    }
-}
-</style>
-
-<div class="container-fluid">
+<div class="container-fluid dashboard-page">
 
     <!-- WELCOME -->
     <div class="mb-4">
-        <h3>Welcome, {{ Auth::user()->name }}!</h3>
-
-        <p class="text-muted">
-            Student Information Management System
-        </p>
+        <h3 class="fw-semibold">Welcome, {{ Auth::user()->name }}!</h3>
+        <p class="text-muted mb-0">Student Information Management System</p>
     </div>
 
     <!-- STATISTICS -->
-    <div class="row g-4">
+    <div class="row g-4 mb-4">
 
-        <!-- STUDENTS -->
+        <!-- TOTAL STUDENTS -->
         <div class="col-md-6 col-xl-3">
-            <div class="card stat-card bg-primary text-white">
+            <div class="card dashboard-stat bg-primary text-white">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6>Total Students</h6>
-                            <h2>{{ $totalStudents }}</h2>
+                            <div class="stat-label">Total Students</div>
+                            <h2 class="stat-number">{{ $totalStudents }}</h2>
                         </div>
-                        <i class="bi bi-people fs-1"></i>
+                        <i class="bi bi-people stat-icon"></i>
                     </div>
                     <small>Registered Students</small>
                 </div>
             </div>
         </div>
 
-        <!-- SUBJECTS -->
+        <!-- TOTAL SUBJECTS -->
         <div class="col-md-6 col-xl-3">
-            <div class="card stat-card bg-success text-white">
+            <div class="card dashboard-stat bg-success text-white">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6>Total Subjects</h6>
-                            <h2>{{ $totalSubjects }}</h2>
+                            <div class="stat-label">Total Subjects</div>
+                            <h2 class="stat-number">{{ $totalSubjects }}</h2>
                         </div>
-                        <i class="bi bi-book fs-1"></i>
+                        <i class="bi bi-book stat-icon"></i>
                     </div>
                     <small>Available Subjects</small>
                 </div>
             </div>
         </div>
 
-        <!-- ENROLLMENTS -->
+        <!-- TOTAL ENROLLMENTS -->
         <div class="col-md-6 col-xl-3">
-            <div class="card stat-card bg-warning text-dark">
+            <div class="card dashboard-stat bg-warning text-dark">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6>Total Enrollments</h6>
-                            <h2>{{ $totalEnrollments }}</h2>
+                            <div class="stat-label">Total Enrollments</div>
+                            <h2 class="stat-number">{{ $totalEnrollments }}</h2>
                         </div>
-                        <i class="bi bi-journal-check fs-1"></i>
+                        <i class="bi bi-journal-check stat-icon"></i>
                     </div>
                     <small>Student Subject Records</small>
                 </div>
             </div>
         </div>
 
-        <!-- USERS -->
+        <!-- SYSTEM USERS -->
         <div class="col-md-6 col-xl-3">
-            <div class="card stat-card bg-dark text-white">
+            <div class="card dashboard-stat bg-dark text-white">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6>System Users</h6>
-                            <h2>{{ $totalUsers }}</h2>
+                            <div class="stat-label">System Users</div>
+                            <h2 class="stat-number">{{ $totalUsers }}</h2>
                         </div>
-                        <i class="bi bi-person-lock fs-1"></i>
+                        <i class="bi bi-person-lock stat-icon"></i>
                     </div>
                     <small>Registered Accounts</small>
                 </div>
@@ -225,198 +83,760 @@
 
     </div>
 
-    <!-- SYSTEM SUMMARY & QUICK ACCESS -->
-    <div class="row mt-4">
+    <!-- COURSE DISTRIBUTION & ENROLLMENT STATUS -->
+    <div class="row g-4 mb-4">
 
-        <!-- SYSTEM SUMMARY -->
-        <div class="col-lg-8">
-            <div class="card stat-card">
-                <div class="card-body">
+        <!-- STUDENTS BY COURSE -->
+        <div class="col-lg-7">
 
-                    <h5 class="card-title">
-                        <i class="bi bi-info-circle text-primary"></i>
-                        System Summary
+            <div class="card dashboard-card h-100">
+                <div class="card-body p-4">
+
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <div>
+                            <h5 class="fw-semibold mb-1">
+                                <i class="bi bi-bar-chart-fill text-primary me-2"></i>
+                                Students by Course
+                            </h5>
+                            <p class="text-muted small mb-0">
+                                Distribution across registered courses
+                            </p>
+                        </div>
+
+                        <a href="{{ route('students.index') }}"
+                           class="btn btn-sm btn-outline-primary">
+                            View Students
+                        </a>
+                    </div>
+
+                    @php
+                        $maxCourseStudents = $studentsByCourse->max('total_students') ?? 0;
+
+                        $courseColors = [
+                            ['#2563eb', '#60a5fa'],
+                            ['#059669', '#34d399'],
+                            ['#f59e0b', '#fbbf24'],
+                            ['#8b5cf6', '#c084fc'],
+                            ['#ec4899', '#f472b6'],
+                            ['#06b6d4', '#67e8f9'],
+                            ['#f97316', '#fb923c'],
+                            ['#14b8a6', '#5eead4'],
+                            ['#6366f1', '#818cf8'],
+                            ['#ef4444', '#f87171'],
+                        ];
+                    @endphp
+
+                    <div class="course-distribution mt-4">
+
+                        @forelse($studentsByCourse as $courseIndex => $course)
+
+                            @php
+                                $percentage = $totalStudents > 0
+                                    ? ($course->total_students / $totalStudents) * 100
+                                    : 0;
+
+                                $barWidth = $maxCourseStudents > 0
+                                    ? ($course->total_students / $maxCourseStudents) * 100
+                                    : 0;
+
+                                $color = $courseColors[$courseIndex % count($courseColors)];
+                            @endphp
+
+                            <div class="course-item mb-4">
+
+                                <div class="d-flex justify-content-between align-items-center mb-2 gap-2">
+
+                                    <div class="course-name fw-medium">
+                                        {{ $course->course }}
+                                    </div>
+
+                                    <span class="course-count-badge"
+                                          style="--course-color: {{ $color[0] }};">
+                                        {{ $course->total_students }}
+                                        {{ $course->total_students == 1 ? 'student' : 'students' }}
+                                    </span>
+
+                                </div>
+
+                                <!-- COURSE PROGRESS BAR -->
+                                <div class="course-progress-track">
+                                    <div class="course-progress-fill"
+                                         style="width: {{ $barWidth }}%;
+                                                background: linear-gradient(90deg, {{ $color[0] }}, {{ $color[1] }});">
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-between mt-2">
+                                    <small class="text-muted">Course share</small>
+                                    <small class="course-percentage fw-semibold">
+                                        {{ number_format($percentage, 1) }}%
+                                    </small>
+                                </div>
+
+                            </div>
+
+                        @empty
+
+                            <div class="text-center py-5">
+                                <i class="bi bi-bar-chart-line text-muted fs-1"></i>
+                                <p class="text-muted mt-2">
+                                    No student course data available.
+                                </p>
+                            </div>
+
+                        @endforelse
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="col-lg-5">
+
+            <!-- ENROLLMENT STATUS -->
+            <div class="card dashboard-card mb-4">
+
+                <div class="card-body p-4">
+
+                    <div class="mb-3">
+                        <h5 class="fw-semibold mb-1">
+                            <i class="bi bi-clipboard-check text-primary me-2"></i>
+                            Enrollment Status
+                        </h5>
+
+                        <p class="text-muted small mb-0">
+                            Current enrollment records by status
+                        </p>
+                    </div>
+
+                    <!-- ACTIVE -->
+                    <div class="d-flex align-items-center justify-content-between py-4 border-bottom">
+                        <div class="d-flex align-items-center gap-3">
+                            <span class="status-dot bg-success"></span>
+                            <span class="fw-medium">Active</span>
+                        </div>
+
+                        <span class="fw-semibold">{{ $activeEnrollments }}</span>
+                    </div>
+
+                    <!-- INACTIVE -->
+                    <div class="d-flex align-items-center justify-content-between py-4 border-bottom">
+                        <div class="d-flex align-items-center gap-3">
+                            <span class="status-dot bg-secondary"></span>
+                            <span class="fw-medium">Inactive</span>
+                        </div>
+
+                        <span class="fw-semibold">{{ $inactiveEnrollments }}</span>
+                    </div>
+
+                    <div class="mt-4">
+                        <a href="{{ route('enrollments.index') }}"
+                           class="btn btn-outline-primary">
+                            <i class="bi bi-list-check me-1"></i>
+                            Manage Enrollments
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- STUDENT GENDER DISTRIBUTION -->
+            @php
+                $maleStudents = $maleStudents ?? 0;
+                $femaleStudents = $femaleStudents ?? 0;
+
+                $genderTotal = $maleStudents + $femaleStudents;
+
+                $malePercentage = $genderTotal > 0
+                    ? ($maleStudents / $genderTotal) * 100
+                    : 0;
+
+                $femalePercentage = $genderTotal > 0
+                    ? ($femaleStudents / $genderTotal) * 100
+                    : 0;
+
+                $maleDegree = $malePercentage * 3.6;
+            @endphp
+
+            <div class="card dashboard-card gender-card">
+
+                <div class="card-body p-4">
+
+                    <div class="mb-3">
+                        <h5 class="fw-semibold mb-1">
+                            <i class="bi bi-pie-chart-fill text-primary me-2"></i>
+                            Student Gender Distribution
+                        </h5>
+
+                        <p class="text-muted small mb-0">
+                            Male and female student population
+                        </p>
+                    </div>
+
+                    @if($genderTotal > 0)
+
+                        <!-- PIE CHART -->
+                        <div class="gender-chart-wrapper">
+
+                            <div class="gender-pie-chart"
+                                 style="background:
+                                    conic-gradient(
+                                        #2563eb 0deg {{ $maleDegree }}deg,
+                                        #ec4899 {{ $maleDegree }}deg 360deg
+                                    );">
+
+                                <div class="gender-pie-center">
+                                    <strong>{{ $genderTotal }}</strong>
+                                    <small>Students</small>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- LEGEND -->
+                        <div class="gender-legend mt-4">
+
+                            <!-- MALE -->
+                            <div class="gender-legend-item">
+
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="gender-color-dot male-color"></span>
+                                    <span class="fw-medium">Male</span>
+                                </div>
+
+                                <div class="text-end">
+                                    <div class="fw-semibold">
+                                        {{ $maleStudents }}
+                                    </div>
+                                    <small class="text-muted">
+                                        {{ number_format($malePercentage, 1) }}%
+                                    </small>
+                                </div>
+
+                            </div>
+
+                            <!-- FEMALE -->
+                            <div class="gender-legend-item">
+
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="gender-color-dot female-color"></span>
+                                    <span class="fw-medium">Female</span>
+                                </div>
+
+                                <div class="text-end">
+                                    <div class="fw-semibold">
+                                        {{ $femaleStudents }}
+                                    </div>
+                                    <small class="text-muted">
+                                        {{ number_format($femalePercentage, 1) }}%
+                                    </small>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    @else
+
+                        <div class="text-center py-5">
+
+                            <i class="bi bi-pie-chart text-muted gender-empty-icon"></i>
+
+                            <p class="text-muted mt-3 mb-0">
+                                No gender data available.
+                            </p>
+
+                        </div>
+
+                    @endif
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- RECENT ENROLLMENTS -->
+    <div class="card dashboard-card mb-4">
+
+        <div class="card-header bg-white border-bottom py-3 px-4">
+
+            <div class="d-flex justify-content-between align-items-center">
+
+                <div>
+                    <h5 class="fw-semibold mb-1">
+                        <i class="bi bi-clock-history text-primary me-2"></i>
+                        Recent Enrollments
                     </h5>
 
-                    <p class="text-muted">
-                        The Student Information Management System is designed
-                        to manage student profiles, academic subjects,
-                        and enrollment records.
+                    <p class="text-muted small mb-0">
+                        Latest enrollment activity
                     </p>
-
-                    <hr>
-
-                    <div class="row text-center">
-
-                        <div class="col-md-4">
-                            <i class="bi bi-people fs-2 text-primary"></i>
-                            <p>Student Management</p>
-                        </div>
-
-                        <div class="col-md-4">
-                            <i class="bi bi-book fs-2 text-success"></i>
-                            <p>Subject Management</p>
-                        </div>
-
-                        <div class="col-md-4">
-                            <i class="bi bi-journal-check fs-2 text-warning"></i>
-                            <p>Enrollment Management</p>
-                        </div>
-
-                    </div>
-
                 </div>
+
+                <a href="{{ route('enrollments.index') }}"
+                   class="btn btn-sm btn-outline-secondary">
+                    View All
+                </a>
+
             </div>
+
         </div>
 
-        <!-- QUICK ACCESS -->
-        <div class="col-lg-4">
-            <div class="card stat-card">
-                <div class="card-body">
+        <div class="table-responsive">
 
-                    <h5 class="card-title">Quick Access</h5>
+            <table class="table dashboard-table align-middle mb-0">
 
-                    <div class="d-grid gap-2">
+                <thead>
+                    <tr>
+                        <th>STUDENT</th>
+                        <th>SCHOOL YEAR</th>
+                        <th>SEMESTER</th>
+                        <th>TOTAL UNITS</th>
+                        <th>TOTAL SUBJECTS</th>
+                        <th>ENROLLED DATE</th>
+                        <th>STATUS</th>
+                    </tr>
+                </thead>
 
-                        <a href="{{ route('students.create') }}"
-                           class="btn btn-outline-primary">
-                            <i class="bi bi-person-plus"></i>
-                            Add Student
-                        </a>
+                <tbody>
 
-                        <a href="{{ route('subjects.create') }}"
-                           class="btn btn-outline-success">
-                            <i class="bi bi-book"></i>
-                            Add Subject
-                        </a>
+                    @forelse($recentEnrollments as $enrollment)
 
-                        <a href="{{ route('enrollments.create') }}"
-                           class="btn btn-outline-warning">
-                            <i class="bi bi-journal-plus"></i>
-                            Create Enrollment
-                        </a>
+                        <tr>
 
-                    </div>
+                            <td>
+                                <div class="fw-semibold">
+                                    {{ $enrollment->first_name }}
+                                    {{ $enrollment->middle_name }}
+                                    {{ $enrollment->last_name }}
+                                </div>
 
+                                <small class="text-muted">
+                                    {{ $enrollment->student_number }}
+                                </small>
+                            </td>
+
+                            <td>{{ $enrollment->school_year }}</td>
+                            <td>{{ $enrollment->semester }}</td>
+
+                            <td>
+                                <span class="fw-semibold">
+                                    {{ $enrollment->total_units }} Units
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="fw-semibold text-primary">
+                                    {{ $enrollment->total_subjects }}
+                                </span>
+                            </td>
+
+                            <td>
+                                {{ \Carbon\Carbon::parse($enrollment->enrolled_date)->format('M d, Y') }}
+                            </td>
+
+                            <td>
+                                @if(strtolower($enrollment->status) == 'active')
+                                    <span class="badge rounded-pill bg-success-subtle text-success px-3 py-2">
+                                        Active
+                                    </span>
+                                @else
+                                    <span class="badge rounded-pill bg-secondary-subtle text-secondary px-3 py-2">
+                                        Inactive
+                                    </span>
+                                @endif
+                            </td>
+
+                        </tr>
+
+                    @empty
+
+                        <tr>
+                            <td colspan="7" class="text-center text-muted py-5">
+                                <i class="bi bi-inbox fs-3 d-block mb-2"></i>
+                                No recent enrollments available.
+                            </td>
+                        </tr>
+
+                    @endforelse
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- UPCOMING SCHOOL EVENTS -->
+    <div class="card dashboard-card mb-4">
+
+        <div class="card-header bg-white border-bottom py-3 px-4">
+
+            <div class="d-flex justify-content-between align-items-center">
+
+                <div>
+                    <h5 class="fw-semibold mb-1">
+                        <i class="bi bi-calendar-event text-primary me-2"></i>
+                        Upcoming School Events
+                    </h5>
+
+                    <p class="text-muted small mb-0">
+                        Campus activities and important dates
+                    </p>
                 </div>
+
+                <a href="#" class="btn btn-sm btn-outline-secondary">
+                    View Calendar
+                </a>
+
             </div>
+
+        </div>
+
+        <div class="card-body p-4">
+
+            <div class="text-center py-3">
+                <i class="bi bi-calendar2-check fs-1 text-muted"></i>
+
+                <p class="text-muted mt-2 mb-0">
+                    No upcoming school events have been posted.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- QUICK ACCESS -->
+    <div class="card dashboard-card mb-4">
+
+        <div class="card-body p-4">
+
+            <h5 class="fw-semibold mb-3">
+                <i class="bi bi-lightning-charge text-warning me-2"></i>
+                Quick Access
+            </h5>
+
+            <div class="row g-3">
+
+                <div class="col-md-4">
+                    <a href="{{ route('students.create') }}"
+                       class="btn btn-outline-primary w-100 py-3">
+                        <i class="bi bi-person-plus me-2"></i>
+                        Add Student
+                    </a>
+                </div>
+
+                <div class="col-md-4">
+                    <a href="{{ route('subjects.create') }}"
+                       class="btn btn-outline-success w-100 py-3">
+                        <i class="bi bi-book me-2"></i>
+                        Add Subject
+                    </a>
+                </div>
+
+                <div class="col-md-4">
+                    <a href="{{ route('enrollments.create') }}"
+                       class="btn btn-outline-warning w-100 py-3">
+                        <i class="bi bi-journal-plus me-2"></i>
+                        Create Enrollment
+                    </a>
+                </div>
+
+            </div>
+
         </div>
 
     </div>
 
 </div>
-
-<!-- ==================================
-     FALLING SNOW
-================================== -->
-<div id="snow-container"></div>
-
-<!-- ==================================
-     NEW YEAR 2027 COUNTDOWN
-================================== -->
-<div class="new-year-countdown bounce-countdown"
-     id="newYearCountdown">
-
-    <button class="countdown-close"
-            onclick="closeCountdown()"
-            title="Close">
-        ×
-    </button>
-
-    <div class="countdown-title">
-        🎉 NEW YEAR COUNTDOWN 🎉
-    </div>
-
-    <div class="countdown-items">
-
-        <div class="countdown-box">
-            <div class="countdown-number" id="ny-days">00</div>
-            <div class="countdown-label">Days</div>
-        </div>
-
-        <div class="countdown-box">
-            <div class="countdown-number" id="ny-hours">00</div>
-            <div class="countdown-label">Hrs</div>
-        </div>
-
-        <div class="countdown-box">
-            <div class="countdown-number" id="ny-minutes">00</div>
-            <div class="countdown-label">Mins</div>
-        </div>
-
-        <div class="countdown-box">
-            <div class="countdown-number" id="ny-seconds">00</div>
-            <div class="countdown-label">Secs</div>
-        </div>
-
-    </div>
-
-</div>
-
-<script>
-/* ==================================
-   NEW YEAR COUNTDOWN
-================================== */
-function updateNewYearCountdown() {
-
-    const targetDate = new Date("January 1, 2027 00:00:00").getTime();
-    const now = new Date().getTime();
-    const distance = targetDate - now;
-
-    if (distance <= 0) {
-        document.getElementById("ny-days").textContent = "00";
-        document.getElementById("ny-hours").textContent = "00";
-        document.getElementById("ny-minutes").textContent = "00";
-        document.getElementById("ny-seconds").textContent = "00";
-        return;
-    }
-
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    document.getElementById("ny-days").textContent = String(days).padStart(2, "0");
-    document.getElementById("ny-hours").textContent = String(hours).padStart(2, "0");
-    document.getElementById("ny-minutes").textContent = String(minutes).padStart(2, "0");
-    document.getElementById("ny-seconds").textContent = String(seconds).padStart(2, "0");
-}
-
-updateNewYearCountdown();
-setInterval(updateNewYearCountdown, 1000);
-
-/* ==================================
-   CLOSE COUNTDOWN
-================================== */
-function closeCountdown() {
-    document.getElementById("newYearCountdown").style.display = "none";
-}
-
-/* ==================================
-   FALLING SNOW EFFECT
-================================== */
-const snowContainer = document.getElementById("snow-container");
-
-function createSnowflake() {
-
-    const snow = document.createElement("div");
-
-    snow.className = "snowflake";
-    snow.innerHTML = "❄";
-
-    snow.style.left = Math.random() * 100 + "vw";
-    snow.style.fontSize = (Math.random() * 12 + 8) + "px";
-    snow.style.animationDuration = (Math.random() * 5 + 5) + "s";
-    snow.style.opacity = Math.random();
-
-    snowContainer.appendChild(snow);
-
-    setTimeout(() => {
-        snow.remove();
-    }, 10000);
-}
-
-setInterval(createSnowflake, 300);
-</script>
 
 @endsection
+
+@push('styles')
+<style>
+
+.dashboard-page {
+    padding-bottom: 25px;
+}
+
+/* DASHBOARD CARDS */
+.dashboard-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    overflow: hidden;
+    background: #ffffff;
+}
+
+.dashboard-stat {
+    border: none;
+    border-radius: 16px;
+    min-height: 150px;
+    box-shadow: 0 5px 15px rgba(15, 23, 42, 0.06);
+}
+
+.dashboard-stat .card-body {
+    padding: 24px;
+}
+
+.stat-label {
+    font-size: 14px;
+    font-weight: 600;
+    opacity: 1;
+}
+
+.stat-number {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 8px 0;
+}
+
+.stat-icon {
+    font-size: 42px;
+    opacity: 0.9;
+}
+
+.dashboard-stat small {
+    opacity: 0.95;
+}
+
+/* COURSE DISTRIBUTION */
+.course-item {
+    padding-bottom: 2px;
+}
+
+.course-name {
+    font-size: 14px;
+    color: #1e293b;
+}
+
+.course-count-badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 50px;
+    color: var(--course-color);
+    background: color-mix(in srgb, var(--course-color) 15%, white);
+    white-space: nowrap;
+}
+
+.course-progress-track {
+    height: 14px;
+    width: 100%;
+    background: #edf1f5;
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+.course-progress-fill {
+    height: 100%;
+    border-radius: 50px;
+    transition: width 0.8s ease;
+}
+
+.course-percentage {
+    color: #334155;
+    font-size: 13px;
+}
+
+/* ENROLLMENT STATUS */
+.status-dot {
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+/* GENDER DISTRIBUTION */
+.gender-chart-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0 5px;
+}
+
+.gender-pie-chart {
+    width: 210px;
+    height: 210px;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+    transition: transform 0.3s ease;
+}
+
+.gender-pie-chart:hover {
+    transform: scale(1.04);
+}
+
+.gender-pie-center {
+    position: absolute;
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+    background: #ffffff;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 0 0 0 1px #e2e8f0;
+}
+
+.gender-pie-center strong {
+    font-size: 30px;
+    color: #0f172a;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.gender-pie-center small {
+    color: #64748b;
+    font-size: 12px;
+}
+
+.gender-legend {
+    border-top: 1px solid #e2e8f0;
+    padding-top: 12px;
+}
+
+.gender-legend-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 4px;
+    border-bottom: 1px solid #edf1f5;
+}
+
+.gender-legend-item:last-child {
+    border-bottom: none;
+}
+
+.gender-color-dot {
+    width: 13px;
+    height: 13px;
+    display: inline-block;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.male-color {
+    background: #2563eb;
+}
+
+.female-color {
+    background: #ec4899;
+}
+
+.gender-empty-icon {
+    font-size: 45px;
+}
+
+/* TABLE */
+.dashboard-table {
+    min-width: 850px;
+}
+
+.dashboard-table thead th {
+    background: #f8fafc;
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+    padding: 14px 18px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.dashboard-table tbody td {
+    padding: 15px 18px;
+    border-bottom: 1px solid #e9eef5;
+    font-size: 14px;
+}
+
+.dashboard-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+.dashboard-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+
+    .dashboard-stat {
+        min-height: 130px;
+    }
+
+    .dashboard-stat .card-body {
+        padding: 18px;
+    }
+
+    .stat-number {
+        font-size: 28px;
+    }
+
+    .dashboard-card .card-body {
+        padding: 20px !important;
+    }
+
+    .course-progress-track {
+        height: 12px;
+    }
+
+    .gender-pie-chart {
+        width: 180px;
+        height: 180px;
+    }
+
+    .gender-pie-center {
+        width: 110px;
+        height: 110px;
+    }
+
+}
+
+/* STAT CARD LABEL CONTRAST FIX */
+.dashboard-stat .stat-label {
+    font-size: 14px;
+    font-weight: 700;
+    opacity: 1 !important;
+    color: inherit !important;
+}
+.dashboard-stat.bg-primary .stat-label,
+.dashboard-stat.bg-success .stat-label,
+.dashboard-stat.bg-dark .stat-label {
+    color: #ffffff !important;
+}
+.dashboard-stat.bg-warning .stat-label {
+    color: #212529 !important;
+}
+.dashboard-stat .stat-number {
+    color: inherit !important;
+}
+.dashboard-stat.bg-warning .stat-number {
+    color: #212529 !important;
+}
+.dashboard-stat.bg-primary small,
+.dashboard-stat.bg-success small,
+.dashboard-stat.bg-dark small {
+    color: #ffffff !important;
+}
+.dashboard-stat.bg-warning small {
+    color: #212529 !important;
+}
+
+</style>
+@endpush
